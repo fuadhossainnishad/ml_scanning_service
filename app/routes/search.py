@@ -30,6 +30,7 @@ async def search_by_image(
         print("status:", "success")
         print("upserted_id:", product_id)
         print("results:", matches)
+
         return {
             "status": "success",
             "upserted_id": product_id,

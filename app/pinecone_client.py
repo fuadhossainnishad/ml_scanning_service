@@ -83,6 +83,7 @@ def query_similar(embedding: list, category: str, top_k: int = 5):
             vector=embedding,
             top_k=top_k,
             include_values=False,
+            include_metadata=True,
             filter={"category": category}
         )
 
@@ -91,8 +92,11 @@ def query_similar(embedding: list, category: str, top_k: int = 5):
             print("No similar items found.")
             return []
 
-        # Return list of product IDs (and optionally scores)
-        return [match['id'] for match in matches]
+        return [
+        {"id": match["id"], "score": match.get("score"), "metadata": match.get("metadata")}
+        for match in matches
+        ]
+
 
     except Exception as e:
         print(f"Error querying Pinecone: {e}")
