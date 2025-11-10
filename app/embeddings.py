@@ -1,14 +1,23 @@
 # app/embeddings.py
 import torch
-from transformers import CLIPProcessor, CLIPModel
+# from transformers import CLIPProcessor, CLIPModel
 from PIL import Image
 import io
-import numpy as np
+import os
+from app.load_models import load_clip_model
 
-# Load CLIP once at startup
 device = "cuda" if torch.cuda.is_available() else "cpu"
-model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
-processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+LOCAL_MODEL_PATH = os.path.join(BASE_DIR, "models", "clip-vit-base-patch32")
+
+
+# model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(device)
+# processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
+
+model, processor = load_clip_model(LOCAL_MODEL_PATH, device)
+
 
 def get_image_embedding(image_bytes: bytes) -> list:
     """Takes raw image bytes and returns normalized CLIP embedding as list"""

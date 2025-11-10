@@ -1,7 +1,8 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.routes import search
-from app.pinecone_client import pc, INDEX_NAME, init_index
+from app.routes import upsert
+# from app.pinecone_client import pc, INDEX_NAME, init_index
 
 # Use lifespan to handle startup/shutdown events (recommended)
 @asynccontextmanager
@@ -23,6 +24,7 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+
 # Root endpoint
 @app.get("/")
 async def read_root():
@@ -30,3 +32,4 @@ async def read_root():
 
 # Include your search router
 app.include_router(search.router, prefix="/api/v1")
+app.include_router(upsert.router, prefix="/api/v1")
