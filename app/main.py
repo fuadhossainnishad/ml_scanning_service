@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from contextlib import asynccontextmanager
 from app.routes import search
 from app.routes import upsert
+from app.pinecone_client import init_index
 # from app.pinecone_client import pc, INDEX_NAME, init_index
 
 # Use lifespan to handle startup/shutdown events (recommended)
