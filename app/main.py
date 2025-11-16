@@ -6,6 +6,8 @@ from app.pinecone_client import init_index
 # from app.pinecone_client import pc, INDEX_NAME, init_index
 
 # Use lifespan to handle startup/shutdown events (recommended)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     try:
