@@ -11,7 +11,6 @@ router = APIRouter()
 async def search_by_image(
     file: UploadFile = File(...),
     # product_id: str = Query(..., description="Unique product ID"),
-    category: str = Query("clothes", description="Category to filter"),
     top_k: int = Query(5, ge=1, le=20, description="Number of results to return")
 ) -> dict:
     try:
@@ -26,7 +25,7 @@ async def search_by_image(
         # upsert_vector(vector_id, product_id, embedding, category)
 
         # Now query for similar items
-        matches: List[str] = query_similar(embedding, category, top_k=top_k)
+        matches: List[str] = query_similar(embedding, top_k=top_k)
 
         print("status:", "success")
         # print("upserted_id:", product_id)

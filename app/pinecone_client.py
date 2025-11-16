@@ -78,14 +78,14 @@ def upsert_vector(vector_id: str, product_id: str, embedding: list, category: st
 
 
 # Query example
-def query_similar(embedding: list, category: str, top_k: int = 5):
+def query_similar(embedding: list, top_k: int = 20):
     try:
         result = index.query(
             vector=embedding,
             top_k=top_k,
             include_values=False,
             include_metadata=True,
-            filter={"category": category}
+            # filter={"category": category}
         )
 
         matches = result.get('matches', [])

@@ -11,7 +11,6 @@ async def upsert_image(
     file: UploadFile = File(...),
     product_id: str = Query(..., description="Unique product ID"),
     category: str = Query(..., description="Category to filter"),
-    top_k: int = Query(5, ge=1, le=20, description="Number of results to return")
 ) -> dict:
     try:
         image_bytes = await file.read()
@@ -33,7 +32,9 @@ async def upsert_image(
 
         return {
             "status": "success",
-            "upserted_id": product_id,
+            "product_id": product_id,
+            "vector_id": vector_id,
+            "category": category,
             # "results": matches
         }
     except Exception as e:
