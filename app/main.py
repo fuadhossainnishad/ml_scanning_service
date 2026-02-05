@@ -27,7 +27,6 @@ app = FastAPI(
     lifespan=lifespan
 )
 
-
 # Root endpoint
 @app.get("/")
 async def read_root():
