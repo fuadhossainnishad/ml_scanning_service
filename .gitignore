@@ -18,6 +18,9 @@ venv/
 # VS Code settings
 .vscode/
 
+# PyCharm
+.idea/
+
 # MacOS files
 .DS_Store
 
@@ -26,13 +29,10 @@ Thumbs.db
 ehthumbs.db
 Desktop.ini
 
-# Python packaging
+# Python packaging / build artifacts
 *.egg-info/
 dist/
 build/
-
-# PyCharm
-.idea/
 
 # Uvicorn / FastAPI temporary files
 *.pid
@@ -40,3 +40,10 @@ build/
 
 # Pinecone or other API keys (if you store locally)
 *.key
+
+# Python version file (optional)
+.python-version
+
+# Coverage reports
+htmlcov/
+.coverage
