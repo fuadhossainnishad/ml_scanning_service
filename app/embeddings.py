@@ -19,8 +19,18 @@ LOCAL_MODEL_PATH = os.path.join(BASE_DIR, "models", "clip-vit-base-patch32")
 model, processor = load_clip_model(LOCAL_MODEL_PATH, device)
 
 
+# def get_image_embedding(image_bytes: bytes) -> list:
+#     """Takes raw image bytes and returns normalized CLIP embedding as list"""
+#     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
+#     inputs = processor(images=image, return_tensors="pt").to(device)
+
+#     with torch.no_grad():
+#         emb = model.get_image_features(**inputs)
+#         emb = emb / emb.norm(p=2, dim=-1, keepdim=True)
+
+#     return emb.cpu().numpy().tolist()[0]
+
 def get_image_embedding(image_bytes: bytes) -> list:
-    """Takes raw image bytes and returns normalized CLIP embedding as list"""
     image = Image.open(io.BytesIO(image_bytes)).convert("RGB")
     inputs = processor(images=image, return_tensors="pt").to(device)
 
@@ -28,4 +38,6 @@ def get_image_embedding(image_bytes: bytes) -> list:
         emb = model.get_image_features(**inputs)
         emb = emb / emb.norm(p=2, dim=-1, keepdim=True)
 
-    return emb.cpu().numpy().tolist()[0]
+    result = emb.cpu().numpy().tolist()[0]
+    assert len(result) == 512, f"Expected 512-dim embedding, got {len(result)}" 
+    return result
