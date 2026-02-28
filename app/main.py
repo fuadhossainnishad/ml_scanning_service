@@ -19,7 +19,7 @@ app = FastAPI(
     description="Scan a clothing image and find matching products.",
     version="1.0.0",
     lifespan=lifespan,
-    root_path="/ml"
+    # root_path="/ml"
 )
 
 
